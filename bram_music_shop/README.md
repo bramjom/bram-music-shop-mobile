@@ -1,4 +1,4 @@
-## Tugas 2
+## Tugas 7
 # Nama Repository : bram-music-mobile
 
 **Abraham Jordy Ollen**
@@ -260,3 +260,204 @@ InkWell(
 );
 
 ```
+
+## Tugas 8
+
+### 1) Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?
+
+Dalam Flutter, `const` adalah kata kunci yang menandakan bahwa sebuah objek atau widget adalah immutable (tidak dapat diubah) dan compile-time constant. Penggunaan `const` pada widget Flutter memiliki beberapa kegunaan dan keuntungan yang dapat meningkatkan efisiensi aplikasi.
+
+**Keuntungan Menggunakan `const` di Flutter**
+
+- **Efisiensi Memori**: Karena objek `const` hanya disimpan satu kali, memori aplikasi lebih efisien. Misalnya, jika kita memiliki beberapa Text("Hello") yang diberi const, Flutter hanya membuat satu instance dari objek Text tersebut, meskipun digunakan di beberapa tempat.
+
+- **Performa yang Lebih Baik**: Dengan menggunakan `const`, Flutter dapat melakukan optimasi saat menggambar ulang tampilan. Widget const tidak perlu dibuat ulang saat build dipanggil, yang membantu mengurangi operasi berlebihan pada aplikasi.
+
+- **Mengurangi Rekonstruksi Widget**: Saat widget bersifat `const`, Flutter tahu bahwa widget tersebut tidak perlu di-render ulang ketika build dipanggil. Ini membantu mengurangi beban rendering saat ada perubahan pada UI, terutama di widget yang sering dibangun ulang.
+
+**Kapan Sebaiknya Menggunakan const**
+- *Static Content*: Gunakan const untuk widget yang tidak akan berubah sepanjang waktu, seperti teks statis, ikon, atau padding. Contohnya:
+
+```dart
+const Text("Hello, world!");
+```
+- *Widget Hierarchy yang Tetap*: Jika kita tahu bahwa struktur widget tertentu tidak akan berubah, maka kita bisa menggunakan const di awal hierarki tersebut untuk mengurangi rekonstruksi.
+
+```dart
+return const Padding(
+  padding: EdgeInsets.all(8.0),
+  child: Text("This is static text"),
+);
+```
+- *Dalam Struktur Stateless Widget*: Jika widget kita bersifat `StatelessWidget` dan tidak mengandalkan data dinamis, maka gunakan `const` untuk setiap widget yang mungkin.
+
+- *Penggunaan Berulang dari Nilai Tetap*: Jika kita menggunakan warna atau ukuran tetap yang sama di beberapa tempat, gunakan `const` agar Flutter mengoptimalkan penggunaan objek tersebut di memori.
+
+**Kapan Tidak Menggunakan const**
+- *Data yang Dinamis*: Jika widget atau nilai berubah berdasarkan kondisi atau input pengguna
+
+- *Stateful Widget dengan Keadaan yang Berubah*: Jika widget memerlukan status atau properti yang dapat berubah, seperti dalam `StatefulWidget`, maka `const` mungkin tidak cocok.
+
+- *Variabel atau Properti yang Bergantung pada Waktu Runtime*: Jika nilai hanya diketahui saat aplikasi berjalan dan tidak bisa ditentukan saat kompilasi, `const` tidak bisa digunakan.
+
+### 2) Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!
+
+`Column` dan `Row` adalah widget tata letak dasar di Flutter yang digunakan untuk menyusun widget secara **vertikal** dan **horizontal**.
+
+Perbedaan Utama antara `Column` dan `Row`
+- **Column**: Menyusun widget secara **vertikal** (dari atas ke bawah).
+- **Row**: Menyusun widget secara **horizontal** (dari kiri ke kanan).
+
+**Contoh Implementasi `Column`**
+Column berguna ketika ingin menyusun widget secara vertikal, misalnya untuk membuat daftar informasi yang tersusun dari atas ke bawah.
+
+```dart
+Column(
+  mainAxisAlignment: MainAxisAlignment.center,
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text("Nama: John Doe"),
+    Text("Pekerjaan: Flutter Developer"),
+    Text("Lokasi: Jakarta"),
+  ],
+)
+```
+
+Penjelasan:
+- **mainAxisAlignment**: Menempatkan widget di tengah sumbu utama (vertikal).
+- **crossAxisAlignment**: Menempatkan widget di awal sumbu silang (kiri).
+
+**Contoh Implementasi `Row`**
+`Row` digunakan untuk menyusun widget secara horizontal, misalnya untuk membuat baris ikon dengan teks di sampingnya.
+
+```dart
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  crossAxisAlignment: CrossAxisAlignment.center,
+  children: [
+    Icon(Icons.phone, color: Colors.blue),
+    Text("Telepon"),
+    Icon(Icons.email, color: Colors.red),
+    Text("Email"),
+  ],
+)
+```
+
+Penjelasan:
+- **mainAxisAlignment**: Menyebar widget secara merata di sepanjang sumbu utama (horizontal).
+- **crossAxisAlignment**: Menempatkan widget di tengah sumbu silang (vertikal).
+
+### 3) Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!
+
+Elemen input yang saya gunakan adalah **TextFormField**, elemen ini digunakan untuk memasukkan teks pada form seperti :
+- **name** : nama produk
+- **amount** : jumlah produk (dikonversi dari teks ke angka)
+- **description** : Deskripsi produk.
+
+**TextFormField** juga memiliki validasi untuk memastikan input tidak kosong dan sesuai dengan tipe data yang diinginkan.
+
+Ada beberapa elemen input flutter yang tidak saya gunakan, seperti :
+
+- Checkbox: Digunakan untuk pilihan boolean (ya/tidak). Misalnya, untuk menandai apakah produk tersedia atau tidak.
+
+- Radio: Digunakan untuk pilihan tunggal dari beberapa opsi. Cocok untuk kasus di mana pengguna hanya boleh memilih satu opsi, misalnya memilih kategori alat musik (gitar, piano, drum).
+
+- Switch: Digunakan sebagai saklar on/off. Misalnya, untuk menentukan apakah produk baru atau bekas.
+
+- Slider: Digunakan untuk memilih nilai dalam rentang tertentu, seperti harga atau kualitas produk (1 hingga 100).
+
+- DropdownButton: Cocok untuk pilihan dengan daftar opsi lebih panjang, misalnya memilih kategori atau merek produk.
+
+### 4) Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?
+
+Untuk mengatur tema dalam aplikasi Flutter agar konsisten, digunakan properti `theme` di dalam `MaterialApp`. Dengan mengatur tema di satu tempat, yaitu di root aplikasi (`MaterialApp`), seluruh widget dalam aplikasi akan menggunakan gaya yang sama untuk elemen seperti warna utama, warna teks, font, ikon, dan elemen UI lainnya.
+
+**Mengatur Tema pada Aplikasi Flutter**
+Pengaturan tema dapat dilakukan dengan mendefinisikan `ThemeData`, yang mencakup pengaturan berbagai aspek tampilan seperti:
+- colorScheme: Menentukan skema warna, termasuk warna utama (primary) dan warna sekunder (secondary).
+- textTheme: Mengatur gaya teks default untuk judul, subjudul, teks biasa, dll.
+- appBarTheme: Mengatur tampilan AppBar, seperti warna latar belakang dan warna ikon.
+- iconTheme: Mengatur warna dan ukuran ikon default di seluruh aplikasi.
+
+**Implementasi Tema di Aplikasi `bram-music-shop`**
+Pada aplikasi Bram Music Shop, tema telah diimplementasikan di dalam main.dart seperti berikut:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:bram_music_shop/screens/menu.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Bram Music Shop',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.black,  // Warna utama menjadi hitam
+          secondary: Colors.black, // Warna sekunder juga hitam
+        ),
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+```
+**Penjelasan Implementasi Tema**
+- *colorScheme*: Pada aplikasi Bram Music Shop, colorScheme diatur dengan primary dan secondary berwarna hitam. Ini memastikan warna hitam digunakan secara konsisten di seluruh aplikasi, termasuk pada AppBar dan elemen UI lainnya yang mengikuti skema warna utama.
+- *AppBar*: Diatur menggunakan AppBar dalam MyHomePage untuk mengambil warna utama dari colorScheme. Ini menjaga AppBar memiliki warna latar belakang dan ikon yang konsisten dengan tema.
+- *iconTheme*: Warna ikon diatur dalam AppBar menggunakan iconTheme, sehingga ikon pada AppBar akan tampil dengan warna putih secara konsisten.
+- *Teks dan Widget Tambahan*: Semua elemen yang mengikuti skema warna akan menggunakan warna yang ditetapkan di colorScheme.
+
+### 5)  Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?
+Dalam Flutter, navigasi antar halaman dengan banyak halaman dapat dikelola dengan beberapa cara utama:
+
+**1. `Navigator` dan `MaterialPageRoute`**
+Navigator digunakan untuk mendorong (push) dan menghapus (pop) halaman dari stack, sehingga memungkinkan navigasi bolak-balik antar halaman.
+
+- Navigator.push: Untuk berpindah ke halaman baru.
+
+```dart
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => DetailPage()),
+);
+```
+- Navigator.pop: Untuk kembali ke halaman sebelumnya.
+
+```dart
+Navigator.pop(context);
+```
+
+**2. Named Routes**
+Dengan named routes, setiap halaman diberi nama unik yang didefinisikan dalam `MaterialApp`, sehingga navigasi menjadi lebih terstruktur.
+
+Konfigurasi Named Routes:
+```dart
+MaterialApp(
+  initialRoute: '/',
+  routes: {
+    '/': (context) => HomePage(),
+    '/details': (context) => DetailPage(),
+  },
+);
+```
+**3. Navigasi dengan `Drawer` atau `BottomNavigationBar`**
+- **Drawer**: Memungkinkan akses cepat ke halaman-halaman utama aplikasi, biasanya ditempatkan di Scaffold.
+- **BottomNavigationBar**: Ideal untuk navigasi tab di bagian bawah, berguna untuk aplikasi yang memerlukan akses cepat antara beberapa halaman utama.
+
+**4. Navigator 2.0 (Untuk Aplikasi Kompleks)**
+`Navigator 2.0` menawarkan kontrol navigasi yang lebih dalam, termasuk dukungan untuk URL routing dan deep linking. Ini cocok untuk aplikasi kompleks dengan kebutuhan routing yang lebih lanjut.
+
+**Contoh di `bram-music-shop`**
+Pada aplikasi Bram Music Shop, navigasi dilakukan menggunakan:
+- *Navigator.push* untuk berpindah ke halaman form tambah produk.
+- *Drawer* untuk menyediakan akses cepat ke halaman utama dan halaman tambah produk.
+
+Pendekatan ini menciptakan pengalaman navigasi yang efisien dan mudah digunakan dalam aplikasi berstruktur banyak halaman.
+
