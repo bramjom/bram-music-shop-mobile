@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bram_music_shop/screens/menu.dart';
 import 'package:bram_music_shop/screens/product_form.dart';
+import 'package:bram_music_shop/screens/list_productentry.dart';
+
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -61,6 +63,17 @@ class LeftDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ProductFormPage()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.shopping_cart),
+            title: const Text('Daftar Product'),
+            onTap: () {
+              // Route menu ke halaman mood
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductEntryPage()),
               );
             },
           ),
